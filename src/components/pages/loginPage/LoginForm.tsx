@@ -41,8 +41,9 @@ export default function LoginForm() {
             placeholder="Digite sua senha"
             type="text"
           />
-
-          <ButtonForm type="submit" text="ENVIAR"></ButtonForm>
+          <div className='m-1'>
+            <ButtonForm type="submit" text="ENVIAR"></ButtonForm>
+          </div>
         </form>
       </FormProvider>
     </div>

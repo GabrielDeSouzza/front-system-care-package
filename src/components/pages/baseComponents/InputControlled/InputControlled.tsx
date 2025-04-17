@@ -18,8 +18,8 @@ export function InputControlled({
           <input
             className={
               fieldState.error
-                ? `bg-red-100  rounded p-1 hover:bg-red-200 transition-colors duration-300`
-                : `bg-blue-50  rounded p-1 hover:bg-blue-100 transition-colors duration-300`
+                ? 'bg-red-100 rounded border-2 hover:bg-red-200 focus:bg-red-200 active:bg-red-200  transition-colors duration-300 '
+                : 'bg-blue-50 rounded hover:bg-blue-100 focus:bg-blue-100 active:bg-blue-100 transition-colors duration-300'
             }
             {...field}
             type={type}
