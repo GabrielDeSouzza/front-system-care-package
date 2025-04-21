@@ -1,0 +1,6 @@
+query SearchCbCarePackageItens($limit: Int!, $where: CarePackageItemWhereInput) {
+  getAllCarePackageItems(limit: $limit, where: $where) {
+    id
+    name
+  }
+}

@@ -1,0 +1,6 @@
+mutation UpdateCarePackageItem($data: UpdateCarePackageItemInput!) {
+  updateCarePackageItem(data: $data) {
+    name
+    id
+  }
+}

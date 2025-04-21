@@ -1,0 +1,6 @@
+mutation CreateCarePackageItem($data: CreateCarePackageItemInput!) {
+  createCarePackageItem(data: $data) {
+    id
+    name
+  }
+}
