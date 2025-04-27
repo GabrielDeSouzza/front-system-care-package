@@ -5,7 +5,7 @@ import CreateCarePackageItemForm from '@/components/forms/carePackageItem/Create
 import UpdatearePackageItemForm from '@/components/forms/carePackageItem/UpdateForm/UpdateCarepackageItem';
 import { useState } from 'react';
 
-export default function CarePackagePage() {
+export default function CarePackageItemPage() {
   const [isUpdate, setIsUpdate] = useState(false);
   return (
     <main className="flex-col items-center justify-center w-3xs">

@@ -1,0 +1,7 @@
+mutation CreateCarePackageSchedule($data: CreateCarePackageScheduleInput!) {
+  createCarePackageSchedule(data: $data) {
+    id
+    deliveryDate
+    carePackageCount
+  }
+}

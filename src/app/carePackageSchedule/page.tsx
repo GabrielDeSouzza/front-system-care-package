@@ -1,10 +1,10 @@
 import Sidebar from '@/components/baseComponents/Sidebar/Sidebar';
-import CarePackagePage from '@/components/pages/carePackageItem/CarepackageItem';
+import CarePackageSchedulePage from '@/components/pages/carePackageSchedule/CarepackageSchedule';
 
 export default function CarePackageItem() {
   return (
     <Sidebar>
-      <CarePackageItem />
+      <CarePackageSchedulePage />
     </Sidebar>
   );
 }

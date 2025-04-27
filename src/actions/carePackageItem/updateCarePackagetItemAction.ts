@@ -1,12 +1,10 @@
 'use server';
 import { getClient } from '@/apollo/ApolloClient';
-import { UpdateCarePackageItemDocument } from '@/generated/graphql';
+import {
+  UpdateCarePackageItemDocument,
+  UpdateCarePackageItemInput,
+} from '@/generated/graphql';
 import { ApolloError } from '@apollo/client';
-
-export type UpdateCarePackageItemFormData = {
-  oldName: string;
-  newName: string;
-};
 
 export type updateCarePackageItemResponse = {
   data:
@@ -20,7 +18,7 @@ export type updateCarePackageItemResponse = {
 export async function updateCarePackageItemAction({
   newName,
   oldName,
-}: UpdateCarePackageItemFormData): Promise<updateCarePackageItemResponse> {
+}: UpdateCarePackageItemInput): Promise<updateCarePackageItemResponse> {
   try {
     const response = await getClient().mutate({
       mutation: UpdateCarePackageItemDocument,

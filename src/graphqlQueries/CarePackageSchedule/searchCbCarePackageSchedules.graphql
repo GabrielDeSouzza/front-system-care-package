@@ -1,0 +1,17 @@
+query GetAllCarePackageSchedules(
+  $where: CarePackageScheduleWhereInput
+  $sort: CarePackageScheduleOrderByWithRelationInput
+  $limit: Int!
+  $offset: Int!
+) {
+  getAllCarePackageSchedules(
+    where: $where
+    sort: $sort
+    limit: $limit
+    offset: $offset
+  ) {
+    carePackageCount
+    id
+    deliveryDate
+  }
+}

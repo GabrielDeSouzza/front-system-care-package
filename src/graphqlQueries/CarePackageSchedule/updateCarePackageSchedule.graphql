@@ -1,0 +1,7 @@
+mutation UpdateCarePackageSchedule($data: UpdateCarePackageScheduleInput!) {
+  updateCarePackageSchedule(data: $data) {
+    carePackageCount
+    deliveryDate
+    id
+  }
+}

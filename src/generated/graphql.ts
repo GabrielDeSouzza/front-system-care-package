@@ -77,6 +77,19 @@ export type CarePackageOrderByRelationAggregateInput = {
   _count: InputMaybe<SortOrder>;
 };
 
+export type CarePackageScheduleModel = {
+  carePackageCount: Scalars['Float']['output'];
+  deliveryDate: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+};
+
+export type CarePackageScheduleOrderByWithRelationInput = {
+  CarePackage: InputMaybe<CarePackageOrderByRelationAggregateInput>;
+  carePackageCount: InputMaybe<SortOrder>;
+  deliveryDate: InputMaybe<SortOrder>;
+  id: InputMaybe<SortOrder>;
+};
+
 export type CarePackageScheduleScalarRelationFilter = {
   is: InputMaybe<CarePackageScheduleWhereInput>;
   isNot: InputMaybe<CarePackageScheduleWhereInput>;
@@ -144,6 +157,11 @@ export type CreateCarePackageItemInput = {
   name: Scalars['String']['input'];
 };
 
+export type CreateCarePackageScheduleInput = {
+  carePackageCount: Scalars['Float']['input'];
+  deliveryDate: Scalars['DateTime']['input'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -166,6 +184,11 @@ export type GetCarePackageItemInput = {
   name: InputMaybe<Scalars['String']['input']>;
 };
 
+export type GetCarePackageScheduleInput = {
+  deliveryDate: InputMaybe<Scalars['DateTime']['input']>;
+  id: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type IntFilter = {
   equals: InputMaybe<Scalars['Int']['input']>;
   gt: InputMaybe<Scalars['Int']['input']>;
@@ -179,14 +202,21 @@ export type IntFilter = {
 
 export type Mutation = {
   createCarePackageItem: CarePackageItemModel;
+  createCarePackageSchedule: CarePackageScheduleModel;
   createUser: UserModel;
   signIn: SignInResponseModel;
   updateCarePackageItem: CarePackageItemModel;
+  updateCarePackageSchedule: CarePackageScheduleModel;
 };
 
 
 export type MutationCreateCarePackageItemArgs = {
   data: CreateCarePackageItemInput;
+};
+
+
+export type MutationCreateCarePackageScheduleArgs = {
+  data: CreateCarePackageScheduleInput;
 };
 
 
@@ -203,6 +233,11 @@ export type MutationSignInArgs = {
 
 export type MutationUpdateCarePackageItemArgs = {
   data: UpdateCarePackageItemInput;
+};
+
+
+export type MutationUpdateCarePackageScheduleArgs = {
+  data: UpdateCarePackageScheduleInput;
 };
 
 export type NestedBoolFilter = {
@@ -284,14 +319,22 @@ export type PersonWhereInput = {
 
 export type Query = {
   countCarePackageItems: Scalars['Int']['output'];
+  countCarePackageSchedules: Scalars['Int']['output'];
   getAllCarePackageItems: Array<CarePackageItemModel>;
+  getAllCarePackageSchedules: Array<CarePackageScheduleModel>;
   getCarePackageItem: CarePackageItemModel;
+  getCarePackageSchedule: CarePackageScheduleModel;
   getUser: UserModel;
 };
 
 
 export type QueryCountCarePackageItemsArgs = {
   where: InputMaybe<CarePackageItemWhereInput>;
+};
+
+
+export type QueryCountCarePackageSchedulesArgs = {
+  where: InputMaybe<CarePackageScheduleWhereInput>;
 };
 
 
@@ -303,8 +346,21 @@ export type QueryGetAllCarePackageItemsArgs = {
 };
 
 
+export type QueryGetAllCarePackageSchedulesArgs = {
+  limit?: Scalars['Int']['input'];
+  offset?: Scalars['Int']['input'];
+  sort: InputMaybe<CarePackageScheduleOrderByWithRelationInput>;
+  where: InputMaybe<CarePackageScheduleWhereInput>;
+};
+
+
 export type QueryGetCarePackageItemArgs = {
   request: GetCarePackageItemInput;
+};
+
+
+export type QueryGetCarePackageScheduleArgs = {
+  request: GetCarePackageScheduleInput;
 };
 
 
@@ -377,6 +433,12 @@ export type TypeCarePackageWhereInput = {
 export type UpdateCarePackageItemInput = {
   newName: InputMaybe<Scalars['String']['input']>;
   oldName: Scalars['ID']['input'];
+};
+
+export type UpdateCarePackageScheduleInput = {
+  carePackageCount: InputMaybe<Scalars['Float']['input']>;
+  newDeliveryDate: InputMaybe<Scalars['DateTime']['input']>;
+  oldDeliveryDate: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type UserModel = {
@@ -452,6 +514,37 @@ export type UpdateCarePackageItemMutationVariables = Exact<{
 
 
 export type UpdateCarePackageItemMutation = { updateCarePackageItem: { name: string, id: string } };
+
+export type CreateCarePackageScheduleMutationVariables = Exact<{
+  data: CreateCarePackageScheduleInput;
+}>;
+
+
+export type CreateCarePackageScheduleMutation = { createCarePackageSchedule: { id: string, deliveryDate: any, carePackageCount: number } };
+
+export type GetCarePackageScheduleQueryVariables = Exact<{
+  request: GetCarePackageScheduleInput;
+}>;
+
+
+export type GetCarePackageScheduleQuery = { getCarePackageSchedule: { deliveryDate: any, carePackageCount: number } };
+
+export type GetAllCarePackageSchedulesQueryVariables = Exact<{
+  where: InputMaybe<CarePackageScheduleWhereInput>;
+  sort: InputMaybe<CarePackageScheduleOrderByWithRelationInput>;
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
+
+
+export type GetAllCarePackageSchedulesQuery = { getAllCarePackageSchedules: Array<{ carePackageCount: number, id: string, deliveryDate: any }> };
+
+export type UpdateCarePackageScheduleMutationVariables = Exact<{
+  data: UpdateCarePackageScheduleInput;
+}>;
+
+
+export type UpdateCarePackageScheduleMutation = { updateCarePackageSchedule: { carePackageCount: number, deliveryDate: any, id: string } };
 
 export type SignInMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -572,6 +665,167 @@ export function useUpdateCarePackageItemMutation(baseOptions?: Apollo.MutationHo
 export type UpdateCarePackageItemMutationHookResult = ReturnType<typeof useUpdateCarePackageItemMutation>;
 export type UpdateCarePackageItemMutationResult = Apollo.MutationResult<UpdateCarePackageItemMutation>;
 export type UpdateCarePackageItemMutationOptions = Apollo.BaseMutationOptions<UpdateCarePackageItemMutation, UpdateCarePackageItemMutationVariables>;
+export const CreateCarePackageScheduleDocument = gql`
+    mutation CreateCarePackageSchedule($data: CreateCarePackageScheduleInput!) {
+  createCarePackageSchedule(data: $data) {
+    id
+    deliveryDate
+    carePackageCount
+  }
+}
+    `;
+export type CreateCarePackageScheduleMutationFn = Apollo.MutationFunction<CreateCarePackageScheduleMutation, CreateCarePackageScheduleMutationVariables>;
+
+/**
+ * __useCreateCarePackageScheduleMutation__
+ *
+ * To run a mutation, you first call `useCreateCarePackageScheduleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCarePackageScheduleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCarePackageScheduleMutation, { data, loading, error }] = useCreateCarePackageScheduleMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateCarePackageScheduleMutation(baseOptions?: Apollo.MutationHookOptions<CreateCarePackageScheduleMutation, CreateCarePackageScheduleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCarePackageScheduleMutation, CreateCarePackageScheduleMutationVariables>(CreateCarePackageScheduleDocument, options);
+      }
+export type CreateCarePackageScheduleMutationHookResult = ReturnType<typeof useCreateCarePackageScheduleMutation>;
+export type CreateCarePackageScheduleMutationResult = Apollo.MutationResult<CreateCarePackageScheduleMutation>;
+export type CreateCarePackageScheduleMutationOptions = Apollo.BaseMutationOptions<CreateCarePackageScheduleMutation, CreateCarePackageScheduleMutationVariables>;
+export const GetCarePackageScheduleDocument = gql`
+    query GetCarePackageSchedule($request: GetCarePackageScheduleInput!) {
+  getCarePackageSchedule(request: $request) {
+    deliveryDate
+    carePackageCount
+  }
+}
+    `;
+
+/**
+ * __useGetCarePackageScheduleQuery__
+ *
+ * To run a query within a React component, call `useGetCarePackageScheduleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCarePackageScheduleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCarePackageScheduleQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useGetCarePackageScheduleQuery(baseOptions: Apollo.QueryHookOptions<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables> & ({ variables: GetCarePackageScheduleQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables>(GetCarePackageScheduleDocument, options);
+      }
+export function useGetCarePackageScheduleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables>(GetCarePackageScheduleDocument, options);
+        }
+export function useGetCarePackageScheduleSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables>(GetCarePackageScheduleDocument, options);
+        }
+export type GetCarePackageScheduleQueryHookResult = ReturnType<typeof useGetCarePackageScheduleQuery>;
+export type GetCarePackageScheduleLazyQueryHookResult = ReturnType<typeof useGetCarePackageScheduleLazyQuery>;
+export type GetCarePackageScheduleSuspenseQueryHookResult = ReturnType<typeof useGetCarePackageScheduleSuspenseQuery>;
+export type GetCarePackageScheduleQueryResult = Apollo.QueryResult<GetCarePackageScheduleQuery, GetCarePackageScheduleQueryVariables>;
+export const GetAllCarePackageSchedulesDocument = gql`
+    query GetAllCarePackageSchedules($where: CarePackageScheduleWhereInput, $sort: CarePackageScheduleOrderByWithRelationInput, $limit: Int!, $offset: Int!) {
+  getAllCarePackageSchedules(
+    where: $where
+    sort: $sort
+    limit: $limit
+    offset: $offset
+  ) {
+    carePackageCount
+    id
+    deliveryDate
+  }
+}
+    `;
+
+/**
+ * __useGetAllCarePackageSchedulesQuery__
+ *
+ * To run a query within a React component, call `useGetAllCarePackageSchedulesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllCarePackageSchedulesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllCarePackageSchedulesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useGetAllCarePackageSchedulesQuery(baseOptions: Apollo.QueryHookOptions<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables> & ({ variables: GetAllCarePackageSchedulesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables>(GetAllCarePackageSchedulesDocument, options);
+      }
+export function useGetAllCarePackageSchedulesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables>(GetAllCarePackageSchedulesDocument, options);
+        }
+export function useGetAllCarePackageSchedulesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables>(GetAllCarePackageSchedulesDocument, options);
+        }
+export type GetAllCarePackageSchedulesQueryHookResult = ReturnType<typeof useGetAllCarePackageSchedulesQuery>;
+export type GetAllCarePackageSchedulesLazyQueryHookResult = ReturnType<typeof useGetAllCarePackageSchedulesLazyQuery>;
+export type GetAllCarePackageSchedulesSuspenseQueryHookResult = ReturnType<typeof useGetAllCarePackageSchedulesSuspenseQuery>;
+export type GetAllCarePackageSchedulesQueryResult = Apollo.QueryResult<GetAllCarePackageSchedulesQuery, GetAllCarePackageSchedulesQueryVariables>;
+export const UpdateCarePackageScheduleDocument = gql`
+    mutation UpdateCarePackageSchedule($data: UpdateCarePackageScheduleInput!) {
+  updateCarePackageSchedule(data: $data) {
+    carePackageCount
+    deliveryDate
+    id
+  }
+}
+    `;
+export type UpdateCarePackageScheduleMutationFn = Apollo.MutationFunction<UpdateCarePackageScheduleMutation, UpdateCarePackageScheduleMutationVariables>;
+
+/**
+ * __useUpdateCarePackageScheduleMutation__
+ *
+ * To run a mutation, you first call `useUpdateCarePackageScheduleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCarePackageScheduleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCarePackageScheduleMutation, { data, loading, error }] = useUpdateCarePackageScheduleMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateCarePackageScheduleMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCarePackageScheduleMutation, UpdateCarePackageScheduleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateCarePackageScheduleMutation, UpdateCarePackageScheduleMutationVariables>(UpdateCarePackageScheduleDocument, options);
+      }
+export type UpdateCarePackageScheduleMutationHookResult = ReturnType<typeof useUpdateCarePackageScheduleMutation>;
+export type UpdateCarePackageScheduleMutationResult = Apollo.MutationResult<UpdateCarePackageScheduleMutation>;
+export type UpdateCarePackageScheduleMutationOptions = Apollo.BaseMutationOptions<UpdateCarePackageScheduleMutation, UpdateCarePackageScheduleMutationVariables>;
 export const SignInDocument = gql`
     mutation SignIn($email: String!, $password: String!) {
   signIn(email: $email, password: $password) {

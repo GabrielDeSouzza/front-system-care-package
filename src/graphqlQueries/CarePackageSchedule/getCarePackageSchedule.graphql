@@ -1,0 +1,6 @@
+query GetCarePackageSchedule($request: GetCarePackageScheduleInput!) {
+  getCarePackageSchedule(request: $request) {
+    deliveryDate
+    carePackageCount
+  }
+}

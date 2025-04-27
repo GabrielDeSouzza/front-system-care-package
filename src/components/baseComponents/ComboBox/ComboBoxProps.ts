@@ -1,11 +1,13 @@
+import { HTMLInputTypeAttribute } from 'react';
 import { Control } from 'react-hook-form';
 
 export type ComboBoxProps = {
   label: string;
   selectedValue?: ComboBoxOption;
-  searchOptionsFunc: (search: string) => Promise<ComboBoxOption[]>;
+  options: ComboBoxOption[];
   control: Control<any>;
-  name: string;
+  isLoading?: boolean;
+  type?: HTMLInputTypeAttribute;
 };
 
 export type ComboBoxOption = {

@@ -1,13 +1,14 @@
 'use server';
 import { getClient } from '@/apollo/ApolloClient';
 import { ComboBoxOption } from '@/components/baseComponents/ComboBox/ComboBoxProps';
-import { SearchCbCarePackageItensDocument } from '@/generated/graphql';
+import {
+  SearchCbCarePackageItensDocument,
+  SearchCbCarePackageItensQuery,
+} from '@/generated/graphql';
 
-export async function searchCbCarePackageItensAction(
-  search: string,
-): Promise<ComboBoxOption[]> {
+export async function searchCbCarePackageItensAction(search: string) {
   console.log('search', search);
-  const data = await getClient().query({
+  const data = await getClient().query<SearchCbCarePackageItensQuery>({
     fetchPolicy: 'cache-first',
     query: SearchCbCarePackageItensDocument,
     variables: {
@@ -20,8 +21,8 @@ export async function searchCbCarePackageItensAction(
     },
   });
   console.log('data', data);
-  return data.data.getAllCarePackageItems.map((item: any) => ({
-    value: item.id,
-    label: item.name,
-  })) as ComboBoxOption[];
+  return data.data.getAllCarePackageItems;
 }
+
+export type searchCarePackageItemData =
+  SearchCbCarePackageItensQuery['getAllCarePackageItems'][number];

@@ -1,33 +1,34 @@
 'use server';
 import { getClient } from '@/apollo/ApolloClient';
 import {
-  CreateCarePackageItemDocument,
-  CreateCarePackageItemInput,
+  CreateCarePackageScheduleDocument,
+  CreateCarePackageScheduleInput,
 } from '@/generated/graphql';
 import { ApolloError } from '@apollo/client';
 
-type createCarePackageItemResponse = {
+export type createCarePackageScheduleResponse = {
   data:
     | {
         id: string;
-        name: string;
+        deliverydate: string;
       }
     | undefined;
   errorMessage: string | undefined;
 };
-export async function createCarePackageItemAction({
-  name,
-}: CreateCarePackageItemInput): Promise<createCarePackageItemResponse> {
+export async function createCarePackageScheduleAction({
+  carePackageCount,
+  deliveryDate,
+}: CreateCarePackageScheduleInput): Promise<createCarePackageScheduleResponse> {
   try {
     const response = await getClient().mutate({
-      mutation: CreateCarePackageItemDocument,
-      variables: { data: { name } },
+      mutation: CreateCarePackageScheduleDocument,
+      variables: { data: { carePackageCount, deliveryDate } },
     });
 
     return {
       data: {
-        id: response?.data.createCarePackageItem.id,
-        name: response?.data.createCarePackageItem.name,
+        id: response?.data.createCarePackageSchedule.id,
+        deliverydate: response?.data.createCarePackageSchedule.deliverydate,
       },
       errorMessage: response?.errors?.[0]?.message,
     };
@@ -41,7 +42,7 @@ export async function createCarePackageItemAction({
         }
       : {
           data: undefined,
-          errorMessage: 'Erro ao criar o item',
+          errorMessage: 'Erro ao criar o schedule',
         };
   }
 }

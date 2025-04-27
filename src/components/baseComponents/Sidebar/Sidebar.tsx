@@ -2,13 +2,18 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Home, LogOut, Menu, Scroll } from 'lucide-react';
+import { CalendarDays, Home, LogOut, Menu, Scroll } from 'lucide-react';
 import Link from 'next/link';
 
 const menuItems = [
   { label: 'Início', icon: <Home size={20} />, href: '/dashboard' },
   { label: 'Sair', icon: <LogOut size={20} />, href: '/logout' },
   { label: 'Itens', icon: <Scroll size={20} />, href: '/carePackageItem' },
+  {
+    label: 'Datas',
+    icon: <CalendarDays size={20} />,
+    href: '/carePackageSchedule',
+  },
 ];
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {

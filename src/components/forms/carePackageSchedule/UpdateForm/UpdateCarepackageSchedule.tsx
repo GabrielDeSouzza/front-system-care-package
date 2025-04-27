@@ -2,56 +2,63 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
-  updateCarepackageItemSchema,
-  updateCarepackageItemSchemaType,
-} from './UpdateCarepackageItemSchema';
+  updateCarepackageScheduleSchema,
+  updateCarepackageScheduleSchemaType,
+} from './UpdateCarepackageScheduleSchema';
 import { InputControlled } from '@/components/baseComponents/InputControlled/InputControlled';
-import { updateCarePackageItemAction } from '@/actions/carePackageItem/updateCarePackagetItemAction';
 import { useEffect, useState } from 'react';
 import BottomRightModal from '@/components/baseComponents/BottomRightModal/BottomRightModal';
 import ButtonForm from '@/components/baseComponents/ButtonForm/ButtomForm';
 import ComboBox from '@/components/baseComponents/ComboBox/ComboBox';
+import { updateCarePackageScheduleAction } from '@/actions/carePackageSchedule/updateCarePackagetScheduleAction';
 import {
-  searchCarePackageItemData,
-  searchCbCarePackageItensAction,
-} from '@/actions/carePackageItem/searchCbCarePackageItensAction';
+  seachCbCarePackageScheduleData,
+  searchCbCarePackageSchedulesAction,
+} from '@/actions/carePackageSchedule/searchCbCarePackageSchedulesAction';
 import { useDebounce } from 'use-debounce';
 
-export default function UpdatearePackageItemForm() {
+export default function UpdatearePackageScheduleForm() {
   const [errorMensage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
   const [resultQuey, setResultQuery] = useState<
-    searchCarePackageItemData[] | []
+    seachCbCarePackageScheduleData[] | []
   >([]);
-  const form = useForm<updateCarepackageItemSchemaType>({
-    resolver: zodResolver(updateCarepackageItemSchema),
-    defaultValues: { newName: '', oldName: '' },
+  const form = useForm<updateCarepackageScheduleSchemaType>({
+    resolver: zodResolver(updateCarepackageScheduleSchema),
+    defaultValues: {
+      carePackageCount: 1,
+      newDeliveryDate: new Date(),
+      oldDeliveryDate: new Date(),
+    },
     mode: 'onBlur',
   });
-  const watchedOldName = form.watch('oldName');
+  const watchedOldDeliveryDate = form.watch('oldDeliveryDate');
 
-  const [debouncedOldName] = useDebounce(watchedOldName, 500);
-
+  const [debouncedOldDeliveryDate] = useDebounce(watchedOldDeliveryDate, 500);
   useEffect(() => {
     const fetchData = async () => {
-      console.log('debouncedOldName', debouncedOldName);
-      const result = await searchCbCarePackageItensAction(debouncedOldName);
+      const result = await searchCbCarePackageSchedulesAction(
+        new Date().toISOString(),
+      );
       setResultQuery(result);
     };
     fetchData();
-  }, [debouncedOldName]);
-  const onSubmit = async (data: updateCarepackageItemSchemaType) => {
+  }, []);
+  const onSubmit = async (data: updateCarepackageScheduleSchemaType) => {
     console.log(data);
     setErrorMessage(null);
     setSuccessMessage(null);
-    const result = await updateCarePackageItemAction(data);
+    const result = await updateCarePackageScheduleAction({
+      carePackageCount: data.carePackageCount ?? null,
+      newDeliveryDate: data.newDeliveryDate ?? null,
+      oldDeliveryDate: data.oldDeliveryDate ?? null,
+    });
     if (result.errorMessage) {
       setErrorMessage(result.errorMessage);
       return;
     }
     if (result.data) {
-      setSuccessMessage('Item criado com sucesso');
+      setSuccessMessage('Data atualizado com sucesso');
       form.reset();
     }
   };
@@ -75,20 +82,19 @@ export default function UpdatearePackageItemForm() {
       )}
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <ComboBox
+          <InputControlled
             control={form.control}
-            name="oldName"
-            label="test"
-            options={resultQuey.map((item) => ({
-              value: item.id,
-              label: item.name,
-            }))}
+            label="Schedule"
+            type="date"
+            name="oldDeliveryDate"
+            placeholder="Digite o nome do Schedule"
           />
           <InputControlled
             control={form.control}
-            label="Item"
-            name="newName"
-            placeholder="Digite o nome do Item"
+            label="Schedule"
+            type="date"
+            name="newDeliveryDate"
+            placeholder="Digite o nome do Schedule"
           />
           <ButtonForm text="Atualizar" type="submit" />
         </form>

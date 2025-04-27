@@ -1,19 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { ComboBoxOption, ComboBoxProps } from './ComboBoxProps';
+import { ComboBoxProps } from './ComboBoxProps';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 
 export default function ComboBox({
   label,
-  searchOptionsFunc,
+  options,
   control,
   name,
+  isLoading,
+  type = 'text',
 }: ComboBoxProps & { control: any; name: string }) {
-  const [options, setOptions] = useState<ComboBoxOption[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -30,22 +30,6 @@ export default function ComboBox({
         },
       }}
       render={({ field, fieldState }) => {
-        useEffect(() => {
-          if (field.value?.trim()?.length >= 0) {
-            setIsLoading(true);
-            searchOptionsFunc(field.value)
-              .then((result) => {
-                setOptions(result);
-                if (inputRef.current === document.activeElement) {
-                  setIsOpen(true);
-                }
-              })
-              .finally(() => setIsLoading(false));
-          } else {
-            setOptions([]);
-          }
-        }, [field.value, searchOptionsFunc]);
-
         const handleBlur = (e: React.FocusEvent) => {
           if (
             containerRef.current &&
@@ -68,7 +52,7 @@ export default function ComboBox({
             <div className="relative">
               <input
                 ref={inputRef}
-                type="text"
+                type={type}
                 value={field.value || ''}
                 onChange={(e) => {
                   field.onChange(e.target.value);
