@@ -1,5 +1,4 @@
 import Sidebar from '@/components/baseComponents/Sidebar/Sidebar';
-import CarePackagePage from '@/components/pages/carePackageItem/CarepackageItem';
 
 export default function CarePackageItem() {
   return (

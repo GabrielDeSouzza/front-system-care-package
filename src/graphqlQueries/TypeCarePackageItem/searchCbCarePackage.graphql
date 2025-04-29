@@ -1,0 +1,6 @@
+query SeachCbCarePackage($request: SearchCbCarePackageInput!) {
+  getAllTypeCarePackages {
+    id
+    name
+  }
+}

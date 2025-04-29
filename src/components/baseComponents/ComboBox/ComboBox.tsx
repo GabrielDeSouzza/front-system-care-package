@@ -13,7 +13,7 @@ export default function ComboBox({
   name,
   isLoading,
   type = 'text',
-}: ComboBoxProps & { control: any; name: string }) {
+}: ComboBoxProps ) {
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);

@@ -1,0 +1,7 @@
+query GetTypeCarePackage($request: GetTypeCarePackageInput!) {
+  getTypeCarePackage(request: $request) {
+    id
+    itensName
+    name
+  }
+}

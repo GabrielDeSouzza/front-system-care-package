@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import {
   createCarepackageItemSchema,
   createCarepackageItemSchemaType,
-} from './CreateCarepackageItemSchema';
+} from './CreateTypeCarepackageSchema';
 import { InputControlled } from '@/components/baseComponents/InputControlled/InputControlled';
 import { createCarePackageItemAction } from '@/actions/carePackageItem/createCarePackageItemAction';
 import { useState } from 'react';

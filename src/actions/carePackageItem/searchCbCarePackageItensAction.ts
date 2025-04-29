@@ -1,6 +1,5 @@
 'use server';
 import { getClient } from '@/apollo/ApolloClient';
-import { ComboBoxOption } from '@/components/baseComponents/ComboBox/ComboBoxProps';
 import {
   SearchCbCarePackageItensDocument,
   SearchCbCarePackageItensQuery,
