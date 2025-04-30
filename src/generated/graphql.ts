@@ -44,6 +44,7 @@ export type CarePackageItemOrderByRelationAggregateInput = {
 
 export type CarePackageItemOrderByWithRelationInput = {
   CreatedBy: InputMaybe<UserOrderByWithRelationInput>;
+  TypeCarePackage: InputMaybe<TypeCarePackageOrderByRelationAggregateInput>;
   UpdatedBy: InputMaybe<UserOrderByWithRelationInput>;
   createdAt: InputMaybe<SortOrder>;
   createdBy: InputMaybe<SortOrder>;
@@ -58,6 +59,7 @@ export type CarePackageItemWhereInput = {
   CreatedBy: InputMaybe<UserScalarRelationFilter>;
   NOT: InputMaybe<Array<CarePackageItemWhereInput>>;
   OR: InputMaybe<Array<CarePackageItemWhereInput>>;
+  TypeCarePackage: InputMaybe<TypeCarePackageListRelationFilter>;
   UpdatedBy: InputMaybe<UserScalarRelationFilter>;
   createdAt: InputMaybe<DateTimeFilter>;
   createdBy: InputMaybe<StringFilter>;
@@ -162,6 +164,11 @@ export type CreateCarePackageScheduleInput = {
   deliveryDate: Scalars['DateTime']['input'];
 };
 
+export type CreateTypeCarePackageInput = {
+  itensName: Array<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -189,6 +196,11 @@ export type GetCarePackageScheduleInput = {
   id: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type GetTypeCarePackageInput = {
+  id: InputMaybe<Scalars['ID']['input']>;
+  name: InputMaybe<Scalars['String']['input']>;
+};
+
 export type IntFilter = {
   equals: InputMaybe<Scalars['Int']['input']>;
   gt: InputMaybe<Scalars['Int']['input']>;
@@ -203,10 +215,12 @@ export type IntFilter = {
 export type Mutation = {
   createCarePackageItem: CarePackageItemModel;
   createCarePackageSchedule: CarePackageScheduleModel;
+  createTypeCarePackage: TypeCarePackageModel;
   createUser: UserModel;
   signIn: SignInResponseModel;
   updateCarePackageItem: CarePackageItemModel;
   updateCarePackageSchedule: CarePackageScheduleModel;
+  updateTypeCarePackage: TypeCarePackageModel;
 };
 
 
@@ -217,6 +231,11 @@ export type MutationCreateCarePackageItemArgs = {
 
 export type MutationCreateCarePackageScheduleArgs = {
   data: CreateCarePackageScheduleInput;
+};
+
+
+export type MutationCreateTypeCarePackageArgs = {
+  data: CreateTypeCarePackageInput;
 };
 
 
@@ -238,6 +257,11 @@ export type MutationUpdateCarePackageItemArgs = {
 
 export type MutationUpdateCarePackageScheduleArgs = {
   data: UpdateCarePackageScheduleInput;
+};
+
+
+export type MutationUpdateTypeCarePackageArgs = {
+  data: UpdateTypeCarePackageInput;
 };
 
 export type NestedBoolFilter = {
@@ -320,10 +344,13 @@ export type PersonWhereInput = {
 export type Query = {
   countCarePackageItems: Scalars['Int']['output'];
   countCarePackageSchedules: Scalars['Int']['output'];
+  countTypeCarePackages: Scalars['Int']['output'];
   getAllCarePackageItems: Array<CarePackageItemModel>;
   getAllCarePackageSchedules: Array<CarePackageScheduleModel>;
+  getAllTypeCarePackages: Array<TypeCarePackageModel>;
   getCarePackageItem: CarePackageItemModel;
   getCarePackageSchedule: CarePackageScheduleModel;
+  getTypeCarePackage: TypeCarePackageModel;
   getUser: UserModel;
 };
 
@@ -335,6 +362,11 @@ export type QueryCountCarePackageItemsArgs = {
 
 export type QueryCountCarePackageSchedulesArgs = {
   where: InputMaybe<CarePackageScheduleWhereInput>;
+};
+
+
+export type QueryCountTypeCarePackagesArgs = {
+  where: InputMaybe<TypeCarePackageWhereInput>;
 };
 
 
@@ -354,6 +386,14 @@ export type QueryGetAllCarePackageSchedulesArgs = {
 };
 
 
+export type QueryGetAllTypeCarePackagesArgs = {
+  limit?: Scalars['Int']['input'];
+  offset?: Scalars['Int']['input'];
+  sort: InputMaybe<TypeCarePackageOrderByWithRelationInput>;
+  where: InputMaybe<TypeCarePackageWhereInput>;
+};
+
+
 export type QueryGetCarePackageItemArgs = {
   request: GetCarePackageItemInput;
 };
@@ -361,6 +401,11 @@ export type QueryGetCarePackageItemArgs = {
 
 export type QueryGetCarePackageScheduleArgs = {
   request: GetCarePackageScheduleInput;
+};
+
+
+export type QueryGetTypeCarePackageArgs = {
+  request: GetTypeCarePackageInput;
 };
 
 
@@ -406,8 +451,31 @@ export type TypeCarePackageListRelationFilter = {
   some: InputMaybe<TypeCarePackageWhereInput>;
 };
 
+export type TypeCarePackageModel = {
+  createdAt: Scalars['DateTime']['output'];
+  createdBy: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  itensName: Array<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedBy: Scalars['String']['output'];
+};
+
 export type TypeCarePackageOrderByRelationAggregateInput = {
   _count: InputMaybe<SortOrder>;
+};
+
+export type TypeCarePackageOrderByWithRelationInput = {
+  CarePackage: InputMaybe<CarePackageOrderByRelationAggregateInput>;
+  CarePackageItem: InputMaybe<CarePackageItemOrderByRelationAggregateInput>;
+  CreatedBy: InputMaybe<UserOrderByWithRelationInput>;
+  UpdatedBy: InputMaybe<UserOrderByWithRelationInput>;
+  createdAt: InputMaybe<SortOrder>;
+  createdBy: InputMaybe<SortOrder>;
+  id: InputMaybe<SortOrder>;
+  name: InputMaybe<SortOrder>;
+  updatedAt: InputMaybe<SortOrder>;
+  updatedBy: InputMaybe<SortOrder>;
 };
 
 export type TypeCarePackageScalarRelationFilter = {
@@ -418,6 +486,7 @@ export type TypeCarePackageScalarRelationFilter = {
 export type TypeCarePackageWhereInput = {
   AND: InputMaybe<Array<TypeCarePackageWhereInput>>;
   CarePackage: InputMaybe<CarePackageListRelationFilter>;
+  CarePackageItem: InputMaybe<CarePackageItemListRelationFilter>;
   CreatedBy: InputMaybe<UserScalarRelationFilter>;
   NOT: InputMaybe<Array<TypeCarePackageWhereInput>>;
   OR: InputMaybe<Array<TypeCarePackageWhereInput>>;
@@ -439,6 +508,14 @@ export type UpdateCarePackageScheduleInput = {
   carePackageCount: InputMaybe<Scalars['Float']['input']>;
   newDeliveryDate: InputMaybe<Scalars['DateTime']['input']>;
   oldDeliveryDate: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type UpdateTypeCarePackageInput = {
+  deletedItensName: InputMaybe<Array<Scalars['String']['input']>>;
+  id: InputMaybe<Scalars['String']['input']>;
+  itensName: InputMaybe<Array<Scalars['String']['input']>>;
+  newName: InputMaybe<Scalars['String']['input']>;
+  oldName: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UserModel = {
@@ -545,6 +622,37 @@ export type UpdateCarePackageScheduleMutationVariables = Exact<{
 
 
 export type UpdateCarePackageScheduleMutation = { updateCarePackageSchedule: { carePackageCount: number, deliveryDate: any, id: string } };
+
+export type CreateTypeCarePackageMutationVariables = Exact<{
+  data: CreateTypeCarePackageInput;
+}>;
+
+
+export type CreateTypeCarePackageMutation = { createTypeCarePackage: { name: string, id: string } };
+
+export type GetTypeCarePackageQueryVariables = Exact<{
+  request: GetTypeCarePackageInput;
+}>;
+
+
+export type GetTypeCarePackageQuery = { getTypeCarePackage: { id: string, itensName: Array<string>, name: string } };
+
+export type SeachCbTypeCarePackageQueryVariables = Exact<{
+  where: InputMaybe<TypeCarePackageWhereInput>;
+  sort: InputMaybe<TypeCarePackageOrderByWithRelationInput>;
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
+
+
+export type SeachCbTypeCarePackageQuery = { getAllTypeCarePackages: Array<{ itensName: Array<string>, name: string, id: string }> };
+
+export type UpdateTypeCarePackageMutationVariables = Exact<{
+  data: UpdateTypeCarePackageInput;
+}>;
+
+
+export type UpdateTypeCarePackageMutation = { updateTypeCarePackage: { name: string, id: string } };
 
 export type SignInMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -826,6 +934,166 @@ export function useUpdateCarePackageScheduleMutation(baseOptions?: Apollo.Mutati
 export type UpdateCarePackageScheduleMutationHookResult = ReturnType<typeof useUpdateCarePackageScheduleMutation>;
 export type UpdateCarePackageScheduleMutationResult = Apollo.MutationResult<UpdateCarePackageScheduleMutation>;
 export type UpdateCarePackageScheduleMutationOptions = Apollo.BaseMutationOptions<UpdateCarePackageScheduleMutation, UpdateCarePackageScheduleMutationVariables>;
+export const CreateTypeCarePackageDocument = gql`
+    mutation CreateTypeCarePackage($data: CreateTypeCarePackageInput!) {
+  createTypeCarePackage(data: $data) {
+    name
+    id
+  }
+}
+    `;
+export type CreateTypeCarePackageMutationFn = Apollo.MutationFunction<CreateTypeCarePackageMutation, CreateTypeCarePackageMutationVariables>;
+
+/**
+ * __useCreateTypeCarePackageMutation__
+ *
+ * To run a mutation, you first call `useCreateTypeCarePackageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTypeCarePackageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTypeCarePackageMutation, { data, loading, error }] = useCreateTypeCarePackageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateTypeCarePackageMutation(baseOptions?: Apollo.MutationHookOptions<CreateTypeCarePackageMutation, CreateTypeCarePackageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTypeCarePackageMutation, CreateTypeCarePackageMutationVariables>(CreateTypeCarePackageDocument, options);
+      }
+export type CreateTypeCarePackageMutationHookResult = ReturnType<typeof useCreateTypeCarePackageMutation>;
+export type CreateTypeCarePackageMutationResult = Apollo.MutationResult<CreateTypeCarePackageMutation>;
+export type CreateTypeCarePackageMutationOptions = Apollo.BaseMutationOptions<CreateTypeCarePackageMutation, CreateTypeCarePackageMutationVariables>;
+export const GetTypeCarePackageDocument = gql`
+    query GetTypeCarePackage($request: GetTypeCarePackageInput!) {
+  getTypeCarePackage(request: $request) {
+    id
+    itensName
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetTypeCarePackageQuery__
+ *
+ * To run a query within a React component, call `useGetTypeCarePackageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTypeCarePackageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTypeCarePackageQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useGetTypeCarePackageQuery(baseOptions: Apollo.QueryHookOptions<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables> & ({ variables: GetTypeCarePackageQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables>(GetTypeCarePackageDocument, options);
+      }
+export function useGetTypeCarePackageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables>(GetTypeCarePackageDocument, options);
+        }
+export function useGetTypeCarePackageSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables>(GetTypeCarePackageDocument, options);
+        }
+export type GetTypeCarePackageQueryHookResult = ReturnType<typeof useGetTypeCarePackageQuery>;
+export type GetTypeCarePackageLazyQueryHookResult = ReturnType<typeof useGetTypeCarePackageLazyQuery>;
+export type GetTypeCarePackageSuspenseQueryHookResult = ReturnType<typeof useGetTypeCarePackageSuspenseQuery>;
+export type GetTypeCarePackageQueryResult = Apollo.QueryResult<GetTypeCarePackageQuery, GetTypeCarePackageQueryVariables>;
+export const SeachCbTypeCarePackageDocument = gql`
+    query SeachCbTypeCarePackage($where: TypeCarePackageWhereInput, $sort: TypeCarePackageOrderByWithRelationInput, $limit: Int!, $offset: Int!) {
+  getAllTypeCarePackages(
+    where: $where
+    sort: $sort
+    limit: $limit
+    offset: $offset
+  ) {
+    itensName
+    name
+    id
+  }
+}
+    `;
+
+/**
+ * __useSeachCbTypeCarePackageQuery__
+ *
+ * To run a query within a React component, call `useSeachCbTypeCarePackageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSeachCbTypeCarePackageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSeachCbTypeCarePackageQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      sort: // value for 'sort'
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useSeachCbTypeCarePackageQuery(baseOptions: Apollo.QueryHookOptions<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables> & ({ variables: SeachCbTypeCarePackageQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables>(SeachCbTypeCarePackageDocument, options);
+      }
+export function useSeachCbTypeCarePackageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables>(SeachCbTypeCarePackageDocument, options);
+        }
+export function useSeachCbTypeCarePackageSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables>(SeachCbTypeCarePackageDocument, options);
+        }
+export type SeachCbTypeCarePackageQueryHookResult = ReturnType<typeof useSeachCbTypeCarePackageQuery>;
+export type SeachCbTypeCarePackageLazyQueryHookResult = ReturnType<typeof useSeachCbTypeCarePackageLazyQuery>;
+export type SeachCbTypeCarePackageSuspenseQueryHookResult = ReturnType<typeof useSeachCbTypeCarePackageSuspenseQuery>;
+export type SeachCbTypeCarePackageQueryResult = Apollo.QueryResult<SeachCbTypeCarePackageQuery, SeachCbTypeCarePackageQueryVariables>;
+export const UpdateTypeCarePackageDocument = gql`
+    mutation UpdateTypeCarePackage($data: UpdateTypeCarePackageInput!) {
+  updateTypeCarePackage(data: $data) {
+    name
+    id
+  }
+}
+    `;
+export type UpdateTypeCarePackageMutationFn = Apollo.MutationFunction<UpdateTypeCarePackageMutation, UpdateTypeCarePackageMutationVariables>;
+
+/**
+ * __useUpdateTypeCarePackageMutation__
+ *
+ * To run a mutation, you first call `useUpdateTypeCarePackageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTypeCarePackageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTypeCarePackageMutation, { data, loading, error }] = useUpdateTypeCarePackageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateTypeCarePackageMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTypeCarePackageMutation, UpdateTypeCarePackageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTypeCarePackageMutation, UpdateTypeCarePackageMutationVariables>(UpdateTypeCarePackageDocument, options);
+      }
+export type UpdateTypeCarePackageMutationHookResult = ReturnType<typeof useUpdateTypeCarePackageMutation>;
+export type UpdateTypeCarePackageMutationResult = Apollo.MutationResult<UpdateTypeCarePackageMutation>;
+export type UpdateTypeCarePackageMutationOptions = Apollo.BaseMutationOptions<UpdateTypeCarePackageMutation, UpdateTypeCarePackageMutationVariables>;
 export const SignInDocument = gql`
     mutation SignIn($email: String!, $password: String!) {
   signIn(email: $email, password: $password) {

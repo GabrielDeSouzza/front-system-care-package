@@ -1,14 +1,17 @@
+import { typeCarepackageArrSchema } from '@/components/advancedComponents/CarePackageItemArrSchema';
 import { z } from 'zod';
 
-export const updateCarepackageItemSchema = z.object({
+export const updateTypeCarePackageSchema = z.object({
   newName: z
     .string({ message: 'Digite um Nome Valido' })
     .min(3, 'O Item Deve ter pelo menos 3 caracteres'),
   oldName: z
     .string({ message: 'Digite um Novo Nome Valido' })
     .min(3, 'O novo nome deve ter o pelo menos 3 caracteres'),
+  itensName: z.array(typeCarepackageArrSchema).optional(),
+  deletedItensName: z.array(z.string()).optional(),
 });
 
-export type updateCarepackageItemSchemaType = z.infer<
-  typeof updateCarepackageItemSchema
+export type updateTypeCarePackageSchemaType = z.infer<
+  typeof updateTypeCarePackageSchema
 >;

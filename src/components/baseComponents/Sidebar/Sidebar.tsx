@@ -2,7 +2,14 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { CalendarDays, Home, LogOut, Menu, Scroll } from 'lucide-react';
+import {
+  CalendarDays,
+  Home,
+  LogOut,
+  Menu,
+  Package,
+  Scroll,
+} from 'lucide-react';
 import Link from 'next/link';
 
 const menuItems = [
@@ -13,6 +20,11 @@ const menuItems = [
     label: 'Datas',
     icon: <CalendarDays size={20} />,
     href: '/carePackageSchedule',
+  },
+  {
+    label: 'Tipos de Pacote',
+    icon: <Package size={20} />,
+    href: '/typeCarePackage',
   },
 ];
 
@@ -48,11 +60,11 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       </motion.aside>
 
       <main
-        className={`transition-all duration-300 p-8 bg-amber-200 w-screen h-screen ${
+        className={`transition-all duration-300 p-8 bg-gray-100 w-screen h-screen ${
           isOpen ? ' pl-[245px]' : 'pl-[65px]'
         }`}
       >
-        {children}
+        <div className="w-full h-full">{children}</div>
       </main>
     </div>
   );

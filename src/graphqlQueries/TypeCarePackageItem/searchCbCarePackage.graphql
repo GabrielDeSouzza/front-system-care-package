@@ -1,6 +1,17 @@
-query SeachCbCarePackage($request: SearchCbCarePackageInput!) {
-  getAllTypeCarePackages {
-    id
+query SeachCbTypeCarePackage(
+  $where: TypeCarePackageWhereInput
+  $sort: TypeCarePackageOrderByWithRelationInput
+  $limit: Int!
+  $offset: Int!
+) {
+  getAllTypeCarePackages(
+    where: $where
+    sort: $sort
+    limit: $limit
+    offset: $offset
+  ) {
+    itensName
     name
+    id
   }
 }
