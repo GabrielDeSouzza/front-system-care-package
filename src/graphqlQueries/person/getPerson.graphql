@@ -1,0 +1,17 @@
+query GetPerson($request: GetPersonInput!) {
+  getPerson(request: $request) {
+    id
+    lastName
+    name
+    gender
+    document
+    hasChild
+    birthdayDate
+    Children {
+      name
+      lastName
+      birthdayDate
+      id
+    }
+  }
+}

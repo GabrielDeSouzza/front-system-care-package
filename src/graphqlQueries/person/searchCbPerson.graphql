@@ -1,0 +1,23 @@
+query searchCbPerson(
+  $offset: Int!
+  $limit: Int!
+  $sort: PersonOrderByWithRelationInput
+  $where: PersonWhereInput
+) {
+  getAllPersons(offset: $offset, limit: $limit, sort: $sort, where: $where) {
+    Children {
+      birthdayDate
+      id
+      lastName
+      name
+      gender
+    }
+    hasChild
+    document
+    gender
+    lastName
+    name
+    birthdayDate
+    id
+  }
+}

@@ -18,7 +18,7 @@ import {
   searchTypeCarePackageData,
 } from '@/actions/TypeCarePackage/searchTypeCbCarePackageAction';
 import { updateTypeCarePackageAction } from '@/actions/TypeCarePackage/updateTypeCarePackagetAction';
-import { CarePackageItemArr } from '@/components/advancedComponents/CarePackageItemArr';
+import { CarePackageItemArr } from '@/components/advancedComponents/CarePackageItemArr/CarePackageItemArr';
 
 export default function UpdatearePackageForm() {
   const [errorMensage, setErrorMessage] = useState<string | null>(null);
@@ -47,6 +47,7 @@ export default function UpdatearePackageForm() {
       );
       if (selectedType) {
         setTypeCarePackageName(selectedType);
+        form.setValue('newName', selectedType.name);
         form.setValue(
           'itensName',
           selectedType.itensName.map((item) => ({
@@ -106,7 +107,6 @@ export default function UpdatearePackageForm() {
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <ComboBox
-            control={form.control}
             name="oldName"
             label="test"
             options={resultQuey.map((item) => ({
@@ -115,7 +115,6 @@ export default function UpdatearePackageForm() {
             }))}
           />
           <InputControlled
-            control={form.control}
             label=""
             name="newName"
             placeholder="Digite o nome do "

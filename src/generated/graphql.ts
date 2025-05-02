@@ -133,6 +133,19 @@ export type ChildListRelationFilter = {
   some: InputMaybe<ChildWhereInput>;
 };
 
+export type ChildModel = {
+  birthdayDate: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy: Scalars['String']['output'];
+  gender: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastName: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  responsibleId: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedBy: Scalars['String']['output'];
+};
+
 export type ChildOrderByRelationAggregateInput = {
   _count: InputMaybe<SortOrder>;
 };
@@ -144,9 +157,10 @@ export type ChildWhereInput = {
   OR: InputMaybe<Array<ChildWhereInput>>;
   PersonResponsible: InputMaybe<PersonScalarRelationFilter>;
   UpdatedBy: InputMaybe<UserScalarRelationFilter>;
+  birthdayDate: InputMaybe<DateTimeFilter>;
   createdAt: InputMaybe<DateTimeFilter>;
   createdBy: InputMaybe<StringFilter>;
-  dateBirh: InputMaybe<DateTimeFilter>;
+  gender: InputMaybe<StringFilter>;
   id: InputMaybe<StringFilter>;
   lastName: InputMaybe<StringFilter>;
   name: InputMaybe<StringFilter>;
@@ -162,6 +176,23 @@ export type CreateCarePackageItemInput = {
 export type CreateCarePackageScheduleInput = {
   carePackageCount: Scalars['Float']['input'];
   deliveryDate: Scalars['DateTime']['input'];
+};
+
+export type CreateChildrenRelationPersonInput = {
+  birthdayDate: Scalars['DateTime']['input'];
+  gender: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+};
+
+export type CreatePersonInput = {
+  birthdayDate: Scalars['DateTime']['input'];
+  children: InputMaybe<Array<CreateChildrenRelationPersonInput>>;
+  document: Scalars['String']['input'];
+  gender: Scalars['String']['input'];
+  hasChild: Scalars['Boolean']['input'];
+  lastName: Scalars['String']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type CreateTypeCarePackageInput = {
@@ -196,6 +227,11 @@ export type GetCarePackageScheduleInput = {
   id: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type GetPersonInput = {
+  document: InputMaybe<Scalars['String']['input']>;
+  id: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type GetTypeCarePackageInput = {
   id: InputMaybe<Scalars['ID']['input']>;
   name: InputMaybe<Scalars['String']['input']>;
@@ -215,11 +251,13 @@ export type IntFilter = {
 export type Mutation = {
   createCarePackageItem: CarePackageItemModel;
   createCarePackageSchedule: CarePackageScheduleModel;
+  createPerson: PersonModel;
   createTypeCarePackage: TypeCarePackageModel;
   createUser: UserModel;
   signIn: SignInResponseModel;
   updateCarePackageItem: CarePackageItemModel;
   updateCarePackageSchedule: CarePackageScheduleModel;
+  updatePerson: PersonModel;
   updateTypeCarePackage: TypeCarePackageModel;
 };
 
@@ -231,6 +269,11 @@ export type MutationCreateCarePackageItemArgs = {
 
 export type MutationCreateCarePackageScheduleArgs = {
   data: CreateCarePackageScheduleInput;
+};
+
+
+export type MutationCreatePersonArgs = {
+  data: CreatePersonInput;
 };
 
 
@@ -257,6 +300,11 @@ export type MutationUpdateCarePackageItemArgs = {
 
 export type MutationUpdateCarePackageScheduleArgs = {
   data: UpdateCarePackageScheduleInput;
+};
+
+
+export type MutationUpdatePersonArgs = {
+  data: UpdatePersonInput;
 };
 
 
@@ -311,8 +359,41 @@ export type PersonListRelationFilter = {
   some: InputMaybe<PersonWhereInput>;
 };
 
+export type PersonModel = {
+  Children: Maybe<Array<ChildModel>>;
+  birthdayDate: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  createdBy: Scalars['String']['output'];
+  document: Scalars['String']['output'];
+  gender: Scalars['String']['output'];
+  hasChild: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  lastName: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedBy: Scalars['String']['output'];
+};
+
 export type PersonOrderByRelationAggregateInput = {
   _count: InputMaybe<SortOrder>;
+};
+
+export type PersonOrderByWithRelationInput = {
+  CarePackage: InputMaybe<CarePackageOrderByRelationAggregateInput>;
+  Child: InputMaybe<ChildOrderByRelationAggregateInput>;
+  CreatedBy: InputMaybe<UserOrderByWithRelationInput>;
+  UpdatedBy: InputMaybe<UserOrderByWithRelationInput>;
+  birthdayDate: InputMaybe<SortOrder>;
+  createdAt: InputMaybe<SortOrder>;
+  createdBy: InputMaybe<SortOrder>;
+  document: InputMaybe<SortOrder>;
+  gender: InputMaybe<SortOrder>;
+  hasChild: InputMaybe<SortOrder>;
+  id: InputMaybe<SortOrder>;
+  lastName: InputMaybe<SortOrder>;
+  name: InputMaybe<SortOrder>;
+  updatedAt: InputMaybe<SortOrder>;
+  updatedBy: InputMaybe<SortOrder>;
 };
 
 export type PersonScalarRelationFilter = {
@@ -328,10 +409,10 @@ export type PersonWhereInput = {
   NOT: InputMaybe<Array<PersonWhereInput>>;
   OR: InputMaybe<Array<PersonWhereInput>>;
   UpdatedBy: InputMaybe<UserScalarRelationFilter>;
+  birthdayDate: InputMaybe<DateTimeFilter>;
   createdAt: InputMaybe<DateTimeFilter>;
   createdBy: InputMaybe<StringFilter>;
-  dateBirth: InputMaybe<DateTimeFilter>;
-  document: InputMaybe<IntFilter>;
+  document: InputMaybe<StringFilter>;
   gender: InputMaybe<StringFilter>;
   hasChild: InputMaybe<BoolFilter>;
   id: InputMaybe<StringFilter>;
@@ -344,12 +425,15 @@ export type PersonWhereInput = {
 export type Query = {
   countCarePackageItems: Scalars['Int']['output'];
   countCarePackageSchedules: Scalars['Int']['output'];
+  countPersons: Scalars['Int']['output'];
   countTypeCarePackages: Scalars['Int']['output'];
   getAllCarePackageItems: Array<CarePackageItemModel>;
   getAllCarePackageSchedules: Array<CarePackageScheduleModel>;
+  getAllPersons: Array<PersonModel>;
   getAllTypeCarePackages: Array<TypeCarePackageModel>;
   getCarePackageItem: CarePackageItemModel;
   getCarePackageSchedule: CarePackageScheduleModel;
+  getPerson: PersonModel;
   getTypeCarePackage: TypeCarePackageModel;
   getUser: UserModel;
 };
@@ -362,6 +446,11 @@ export type QueryCountCarePackageItemsArgs = {
 
 export type QueryCountCarePackageSchedulesArgs = {
   where: InputMaybe<CarePackageScheduleWhereInput>;
+};
+
+
+export type QueryCountPersonsArgs = {
+  where: InputMaybe<PersonWhereInput>;
 };
 
 
@@ -386,6 +475,14 @@ export type QueryGetAllCarePackageSchedulesArgs = {
 };
 
 
+export type QueryGetAllPersonsArgs = {
+  limit?: Scalars['Int']['input'];
+  offset?: Scalars['Int']['input'];
+  sort: InputMaybe<PersonOrderByWithRelationInput>;
+  where: InputMaybe<PersonWhereInput>;
+};
+
+
 export type QueryGetAllTypeCarePackagesArgs = {
   limit?: Scalars['Int']['input'];
   offset?: Scalars['Int']['input'];
@@ -401,6 +498,11 @@ export type QueryGetCarePackageItemArgs = {
 
 export type QueryGetCarePackageScheduleArgs = {
   request: GetCarePackageScheduleInput;
+};
+
+
+export type QueryGetPersonArgs = {
+  request: GetPersonInput;
 };
 
 
@@ -508,6 +610,26 @@ export type UpdateCarePackageScheduleInput = {
   carePackageCount: InputMaybe<Scalars['Float']['input']>;
   newDeliveryDate: InputMaybe<Scalars['DateTime']['input']>;
   oldDeliveryDate: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type UpdateChildrenRelationPersonInput = {
+  birthdayDate: InputMaybe<Scalars['DateTime']['input']>;
+  gender: InputMaybe<Scalars['String']['input']>;
+  id: InputMaybe<Scalars['String']['input']>;
+  lastName: InputMaybe<Scalars['String']['input']>;
+  name: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePersonInput = {
+  birthdayDate: InputMaybe<Scalars['DateTime']['input']>;
+  children: InputMaybe<Array<UpdateChildrenRelationPersonInput>>;
+  deletedChildrenIds: InputMaybe<Array<Scalars['String']['input']>>;
+  gender: InputMaybe<Scalars['String']['input']>;
+  hasChild: InputMaybe<Scalars['Boolean']['input']>;
+  lastName: InputMaybe<Scalars['String']['input']>;
+  name: InputMaybe<Scalars['String']['input']>;
+  newDocument: InputMaybe<Scalars['String']['input']>;
+  oldDocument: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateTypeCarePackageInput = {
@@ -653,6 +775,37 @@ export type UpdateTypeCarePackageMutationVariables = Exact<{
 
 
 export type UpdateTypeCarePackageMutation = { updateTypeCarePackage: { name: string, id: string } };
+
+export type CreatePersonMutationVariables = Exact<{
+  data: CreatePersonInput;
+}>;
+
+
+export type CreatePersonMutation = { createPerson: { id: string } };
+
+export type GetPersonQueryVariables = Exact<{
+  request: GetPersonInput;
+}>;
+
+
+export type GetPersonQuery = { getPerson: { id: string, lastName: string, name: string, gender: string, document: string, hasChild: boolean, birthdayDate: any, Children: Array<{ name: string, lastName: string, birthdayDate: any, id: string }> | null } };
+
+export type SearchCbPersonQueryVariables = Exact<{
+  offset: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+  sort: InputMaybe<PersonOrderByWithRelationInput>;
+  where: InputMaybe<PersonWhereInput>;
+}>;
+
+
+export type SearchCbPersonQuery = { getAllPersons: Array<{ hasChild: boolean, document: string, gender: string, lastName: string, name: string, birthdayDate: any, id: string, Children: Array<{ birthdayDate: any, id: string, lastName: string, name: string, gender: string }> | null }> };
+
+export type UpdatePersonMutationVariables = Exact<{
+  data: UpdatePersonInput;
+}>;
+
+
+export type UpdatePersonMutation = { updatePerson: { id: string } };
 
 export type SignInMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -1094,6 +1247,180 @@ export function useUpdateTypeCarePackageMutation(baseOptions?: Apollo.MutationHo
 export type UpdateTypeCarePackageMutationHookResult = ReturnType<typeof useUpdateTypeCarePackageMutation>;
 export type UpdateTypeCarePackageMutationResult = Apollo.MutationResult<UpdateTypeCarePackageMutation>;
 export type UpdateTypeCarePackageMutationOptions = Apollo.BaseMutationOptions<UpdateTypeCarePackageMutation, UpdateTypeCarePackageMutationVariables>;
+export const CreatePersonDocument = gql`
+    mutation CreatePerson($data: CreatePersonInput!) {
+  createPerson(data: $data) {
+    id
+  }
+}
+    `;
+export type CreatePersonMutationFn = Apollo.MutationFunction<CreatePersonMutation, CreatePersonMutationVariables>;
+
+/**
+ * __useCreatePersonMutation__
+ *
+ * To run a mutation, you first call `useCreatePersonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePersonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPersonMutation, { data, loading, error }] = useCreatePersonMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreatePersonMutation(baseOptions?: Apollo.MutationHookOptions<CreatePersonMutation, CreatePersonMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePersonMutation, CreatePersonMutationVariables>(CreatePersonDocument, options);
+      }
+export type CreatePersonMutationHookResult = ReturnType<typeof useCreatePersonMutation>;
+export type CreatePersonMutationResult = Apollo.MutationResult<CreatePersonMutation>;
+export type CreatePersonMutationOptions = Apollo.BaseMutationOptions<CreatePersonMutation, CreatePersonMutationVariables>;
+export const GetPersonDocument = gql`
+    query GetPerson($request: GetPersonInput!) {
+  getPerson(request: $request) {
+    id
+    lastName
+    name
+    gender
+    document
+    hasChild
+    birthdayDate
+    Children {
+      name
+      lastName
+      birthdayDate
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPersonQuery__
+ *
+ * To run a query within a React component, call `useGetPersonQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPersonQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPersonQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useGetPersonQuery(baseOptions: Apollo.QueryHookOptions<GetPersonQuery, GetPersonQueryVariables> & ({ variables: GetPersonQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPersonQuery, GetPersonQueryVariables>(GetPersonDocument, options);
+      }
+export function useGetPersonLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPersonQuery, GetPersonQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPersonQuery, GetPersonQueryVariables>(GetPersonDocument, options);
+        }
+export function useGetPersonSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPersonQuery, GetPersonQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPersonQuery, GetPersonQueryVariables>(GetPersonDocument, options);
+        }
+export type GetPersonQueryHookResult = ReturnType<typeof useGetPersonQuery>;
+export type GetPersonLazyQueryHookResult = ReturnType<typeof useGetPersonLazyQuery>;
+export type GetPersonSuspenseQueryHookResult = ReturnType<typeof useGetPersonSuspenseQuery>;
+export type GetPersonQueryResult = Apollo.QueryResult<GetPersonQuery, GetPersonQueryVariables>;
+export const SearchCbPersonDocument = gql`
+    query searchCbPerson($offset: Int!, $limit: Int!, $sort: PersonOrderByWithRelationInput, $where: PersonWhereInput) {
+  getAllPersons(offset: $offset, limit: $limit, sort: $sort, where: $where) {
+    Children {
+      birthdayDate
+      id
+      lastName
+      name
+      gender
+    }
+    hasChild
+    document
+    gender
+    lastName
+    name
+    birthdayDate
+    id
+  }
+}
+    `;
+
+/**
+ * __useSearchCbPersonQuery__
+ *
+ * To run a query within a React component, call `useSearchCbPersonQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchCbPersonQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchCbPersonQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      sort: // value for 'sort'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useSearchCbPersonQuery(baseOptions: Apollo.QueryHookOptions<SearchCbPersonQuery, SearchCbPersonQueryVariables> & ({ variables: SearchCbPersonQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchCbPersonQuery, SearchCbPersonQueryVariables>(SearchCbPersonDocument, options);
+      }
+export function useSearchCbPersonLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchCbPersonQuery, SearchCbPersonQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchCbPersonQuery, SearchCbPersonQueryVariables>(SearchCbPersonDocument, options);
+        }
+export function useSearchCbPersonSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchCbPersonQuery, SearchCbPersonQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchCbPersonQuery, SearchCbPersonQueryVariables>(SearchCbPersonDocument, options);
+        }
+export type SearchCbPersonQueryHookResult = ReturnType<typeof useSearchCbPersonQuery>;
+export type SearchCbPersonLazyQueryHookResult = ReturnType<typeof useSearchCbPersonLazyQuery>;
+export type SearchCbPersonSuspenseQueryHookResult = ReturnType<typeof useSearchCbPersonSuspenseQuery>;
+export type SearchCbPersonQueryResult = Apollo.QueryResult<SearchCbPersonQuery, SearchCbPersonQueryVariables>;
+export const UpdatePersonDocument = gql`
+    mutation UpdatePerson($data: UpdatePersonInput!) {
+  updatePerson(data: $data) {
+    id
+  }
+}
+    `;
+export type UpdatePersonMutationFn = Apollo.MutationFunction<UpdatePersonMutation, UpdatePersonMutationVariables>;
+
+/**
+ * __useUpdatePersonMutation__
+ *
+ * To run a mutation, you first call `useUpdatePersonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePersonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePersonMutation, { data, loading, error }] = useUpdatePersonMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdatePersonMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePersonMutation, UpdatePersonMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePersonMutation, UpdatePersonMutationVariables>(UpdatePersonDocument, options);
+      }
+export type UpdatePersonMutationHookResult = ReturnType<typeof useUpdatePersonMutation>;
+export type UpdatePersonMutationResult = Apollo.MutationResult<UpdatePersonMutation>;
+export type UpdatePersonMutationOptions = Apollo.BaseMutationOptions<UpdatePersonMutation, UpdatePersonMutationVariables>;
 export const SignInDocument = gql`
     mutation SignIn($email: String!, $password: String!) {
   signIn(email: $email, password: $password) {

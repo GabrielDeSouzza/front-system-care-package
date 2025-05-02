@@ -56,7 +56,6 @@ export default function CreateCarePackageItemForm() {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div>
             <InputControlled
-              control={form.control}
               label="Item"
               name="name"
               placeholder="Digite o nome do Item"

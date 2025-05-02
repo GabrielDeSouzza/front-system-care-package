@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { ComboBoxProps } from './ComboBoxProps';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
@@ -9,11 +9,11 @@ import { Loader2 } from 'lucide-react';
 export default function ComboBox({
   label,
   options,
-  control,
   name,
   isLoading,
   type = 'text',
-}: ComboBoxProps ) {
+}: ComboBoxProps) {
+  const { control } = useFormContext();
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,6 @@ export default function ComboBox({
   return (
     <Controller
       name={name}
-      control={control}
       rules={{
         validate: (value) => {
           const match = options.some((option) => option.label === value);
@@ -43,7 +42,7 @@ export default function ComboBox({
         return (
           <div
             ref={containerRef}
-            className="relative w-full"
+            className="relative w-full min-w-32"
             onBlur={handleBlur}
           >
             <label className="block mb-1 font-medium text-gray-700">

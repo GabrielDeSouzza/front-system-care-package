@@ -11,7 +11,7 @@ import {
   createTypeCarepackageSchema,
 } from './CreateTypeCarepackageSchema';
 import { createTypeCarePackageAction } from '@/actions/TypeCarePackage/createTypeCarePackageAction';
-import { CarePackageItemArr } from '@/components/advancedComponents/CarePackageItemArr';
+import { CarePackageItemArr } from '@/components/advancedComponents/CarePackageItemArr/CarePackageItemArr';
 
 export default function CreateTypeCarepackageForm() {
   const [errorMensage, setErrorMessage] = useState<string | null>(null);
@@ -21,7 +21,6 @@ export default function CreateTypeCarepackageForm() {
     defaultValues: { name: '' },
   });
   const onSubmit = async (data: createTypeCarepackageSchemaType) => {
-    console.log(data);
     setErrorMessage(null);
     setSuccessMessage(null);
     const result = await createTypeCarePackageAction({
@@ -59,7 +58,6 @@ export default function CreateTypeCarepackageForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
           <div className="w-[15rem] ">
             <InputControlled
-              control={form.control}
               label=""
               name="name"
               placeholder="Digite o nome do "

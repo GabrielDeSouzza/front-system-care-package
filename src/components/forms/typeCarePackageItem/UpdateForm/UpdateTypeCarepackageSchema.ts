@@ -1,4 +1,4 @@
-import { typeCarepackageArrSchema } from '@/components/advancedComponents/CarePackageItemArrSchema';
+import { typeCarepackageArrSchema } from '@/components/advancedComponents/CarePackageItemArr/CarePackageItemArrSchema';
 import { z } from 'zod';
 
 export const updateTypeCarePackageSchema = z.object({

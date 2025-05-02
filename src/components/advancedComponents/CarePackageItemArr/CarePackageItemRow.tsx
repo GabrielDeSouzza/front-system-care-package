@@ -5,7 +5,7 @@ import {
 import { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDebounce } from 'use-debounce';
-import ComboBox from '../baseComponents/ComboBox/ComboBox';
+import ComboBox from '../../baseComponents/ComboBox/ComboBox';
 import { typeCarepackageArrSchemaType } from './CarePackageItemArrSchema';
 
 export function CarePackageItemRow({
@@ -33,7 +33,6 @@ export function CarePackageItemRow({
   return (
     <>
       <ComboBox
-        control={control}
         name={`${name}.${index}.itemName`}
         label="Item"
         options={resultQuery.map((item) => ({

@@ -57,7 +57,6 @@ export default function CreateCarePackageScheduleForm() {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div>
             <InputControlled
-              control={form.control}
               label="Schedule"
               name="deliveryDate"
               placeholder="Digite o nome do Schedule"
@@ -66,7 +65,6 @@ export default function CreateCarePackageScheduleForm() {
           </div>
           <div>
             <InputControlled
-              control={form.control}
               label="Numero de Pacotes"
               name="carePackageCount"
               placeholder="Digite o numero de pacotes"

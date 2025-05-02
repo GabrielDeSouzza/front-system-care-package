@@ -76,7 +76,6 @@ export default function UpdatearePackageItemForm() {
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <ComboBox
-            control={form.control}
             name="oldName"
             label="test"
             options={resultQuey.map((item) => ({
@@ -85,7 +84,6 @@ export default function UpdatearePackageItemForm() {
             }))}
           />
           <InputControlled
-            control={form.control}
             label="Item"
             name="newName"
             placeholder="Digite o nome do Item"

@@ -50,19 +50,17 @@ export default function LoginForm() {
 
           <InputControlled
             name="email"
-            control={form.control}
             label="Email"
             placeholder="Digite seu Email"
             type="text"
           />
           <InputControlled
             name="password"
-            control={form.control}
             label="Senha"
             placeholder="Digite sua senha"
             type="text"
           />
-          <div className='m-1'>
+          <div className="m-1">
             <ButtonForm type="submit" text="ENVIAR"></ButtonForm>
           </div>
         </form>

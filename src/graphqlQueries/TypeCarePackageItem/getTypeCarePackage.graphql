@@ -5,3 +5,4 @@ query GetTypeCarePackage($request: GetTypeCarePackageInput!) {
     name
   }
 }
+

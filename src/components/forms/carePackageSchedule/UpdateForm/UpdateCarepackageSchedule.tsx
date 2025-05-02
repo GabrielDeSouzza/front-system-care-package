@@ -63,14 +63,12 @@ export default function UpdatearePackageScheduleForm() {
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <InputControlled
-            control={form.control}
             label="Schedule"
             type="date"
             name="oldDeliveryDate"
             placeholder="Digite o nome do Schedule"
           />
           <InputControlled
-            control={form.control}
             label="Schedule"
             type="date"
             name="newDeliveryDate"

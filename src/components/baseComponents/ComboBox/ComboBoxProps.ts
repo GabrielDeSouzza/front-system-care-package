@@ -6,7 +6,6 @@ export type ComboBoxProps = {
   name: string;
   selectedValue?: ComboBoxOption;
   options: ComboBoxOption[];
-  control: Control<any>;
   isLoading?: boolean;
   type?: HTMLInputTypeAttribute;
 };

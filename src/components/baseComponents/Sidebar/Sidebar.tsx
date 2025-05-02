@@ -9,6 +9,7 @@ import {
   Menu,
   Package,
   Scroll,
+  User,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -26,6 +27,11 @@ const menuItems = [
     icon: <Package size={20} />,
     href: '/typeCarePackage',
   },
+  {
+    label: 'Pessoas',
+    icon: <User size={20} />,
+    href: '/person',
+  },
 ];
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
@@ -34,7 +40,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex">
       <button
-        className="p-3 text-white fixed top-4 left-4 z-50"
+        className="p-3 text-white fixed top-4 left-4 z-50 "
         onClick={() => setIsOpen(!isOpen)}
       >
         <Menu />
